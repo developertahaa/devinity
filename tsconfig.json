@@ -18,7 +18,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src", // Set the base URL to the src folder
+    "paths": {
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"],
+      "@styles/*": ["styles/*"],
+      "@assets/*": ["assets/*"],
+      "three": ["node_modules/three/src/Three"] // Adjust this path as necessary
+
+    },
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
   },
   "include": [
     "src"
