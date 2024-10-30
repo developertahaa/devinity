@@ -13,6 +13,8 @@
     "@types/node": "^16.18.115",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "framer-motion": "^11.11.10",
     "lucide-react": "^0.453.0",
     "react": "^18.3.1",
@@ -20,6 +22,8 @@
     "react-globe": "^5.0.2",
     "react-scripts": "5.0.1",
     "react-simple-typewriter": "^5.0.1",
+    "react-toastify": "^10.0.6",
+    "sweetalert2": "^11.14.4",
     "three": "^0.169.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"

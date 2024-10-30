@@ -4,6 +4,8 @@
   import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
   import { ArrowRight, Code, Home,User, Wrench, Briefcase, Users, Mail,Award, Sparkles, ChevronRight, X, Zap, Globe, ExternalLink, ShoppingCart, DollarSign, PenTool,FileText,Smartphone, BarChart3,Shield, Search, Palette, Share2 } from 'lucide-react'
   import { useTypewriter, Cursor } from 'react-simple-typewriter'
+  import Swal from 'sweetalert2'; // Import SweetAlert2
+  import axios from 'axios';
 
   // Define the Service type
   interface Service {
@@ -191,17 +193,34 @@
         transition: { type: 'spring', stiffness: 300, damping: 10 }
       }
     }
-
-    const handleContactSubmit = (e: FormEvent) => {
+    const handleContactSubmit = async (e: FormEvent) => {
       e.preventDefault();
-
+  
       if (contactStep < 2) {
         setContactStep(contactStep + 1);
       } else {
-        console.log('Form submitted:', contactInfo);
-        // Here you would typically send the data to your backend
+        try {
+          // Send the contact info to the backend API
+          const response = await axios.post('http://localhost:5003/contact', contactInfo);
+                    Swal.fire({
+            title: 'Success!',
+            text: response.data.message, // Use the message from the backend response
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+          setContactInfo({ name: '', email: '', subject: '' });
+          setContactStep(0); // Reset the step to the first input
+  
+        } catch (error) {
+          console.error('Error submitting contact information:', error);
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to submit contact information.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });        }
       }
-    }
+    };
     
     interface Project {
       id: number
@@ -698,23 +717,24 @@
     </section>
         {/* Team Section */}
         <section id="team" className="min-h-screen flex items-center py-20">
-          <div className="container mx-auto px-4 md:px-0">
-            <motion.h2
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-5xl font-bold mb-12 text-center"
-            >
-              Our Team
-            </motion.h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <TeamMember name="Alice Johnson" role="Lead Developer" image="/placeholder.svg?height=200&width=200" />
-              <TeamMember name="Bob Smith" role="UI/UX Designer" image="/placeholder.svg?height=200&width=200" />
-              <TeamMember name="Carol Williams" role="Project Manager" image="/placeholder.svg?height=200&width=200" />
-              <TeamMember name="David Brown" role="Mobile Developer" image="/placeholder.svg?height=200&width=200" />
-            </div>
-          </div>
-        </section>
+  <div className="container mx-auto px-4 md:px-0">
+    <motion.h2
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="text-5xl font-bold mb-12 text-center"
+    >
+      Our Team
+    </motion.h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <TeamMember name="Taha Farooqui" role="CEO" image="/placeholder.svg?height=200&width=200" />
+      <TeamMember name="Khizar Hayat" role="Senior Graphic Designer" image="/placeholder.svg?height=200&width=200" />
+      <TeamMember name="Ahzam Waheed" role="Content Writing Specialist" image="/placeholder.svg?height=200&width=200" />
+      <TeamMember name="Syed Yasir" role="Senior UI/UX Designer" image="/placeholder.svg?height=200&width=200" />
+    </div>
+  </div>
+</section>
+
 
         {/* Contact Section */}
         <section id="contact" className="min-h-screen flex items-center py-20">
