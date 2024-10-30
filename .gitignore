@@ -2,8 +2,7 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
+/backend/node_modules # Ignore node_modules in backend
 
 # testing
 /coverage
@@ -17,6 +16,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+/backend/.env # Ignore .env file in backend
 
 npm-debug.log*
 yarn-debug.log*
